@@ -1,0 +1,28 @@
+
+{
+  "name": "hobbylink-backend",
+  "version": "1.0.0",
+  "description": "Full-stack API for Interactive User Relationship & Hobby Network.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon src/server.js" 
+  },
+  "keywords": [
+    "express",
+    "sqlite",
+    "nodejs",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^11.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
