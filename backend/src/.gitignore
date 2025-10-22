@@ -1,0 +1,4 @@
+backend/node_modules
+backend/.env
+hobbylink-frontend/node_modules
+hobbylink-frontend/.env
