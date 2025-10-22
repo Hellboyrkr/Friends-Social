@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens (optional) */
+:root {
+  --primary: theme(colors.primary);
+  --text: theme(colors.text);
+}
+
+/* Base page */
+html, body, #root {
+  height: 100%;
+}
+body {
+  @apply bg-surface text-text;
+}
+
+/* Reusable components mapped to Tailwind via @apply
+   (so your existing classNames keep working) */
+
+@layer components {
+  .card {
+    @apply bg-card border border-slate-200 rounded-xl shadow-soft;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none
+           focus:ring-2 focus:ring-primary/30 focus:border-primary;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg border border-transparent
+           px-4 py-2 text-sm font-medium transition;
+  }
+  .btn.primary {
+    @apply bg-primary text-white hover:bg-sky-600 active:bg-sky-700;
+  }
+  .btn.ghost {
+    @apply bg-transparent text-slate-700 hover:bg-slate-100;
+  }
+  .btn.danger {
+    @apply bg-red-500 text-white hover:bg-red-600;
+  }
+
+  .label {
+    @apply text-xs font-semibold uppercase tracking-wide text-slate-500;
+  }
+
+  .row {
+    @apply flex items-center gap-3;
+  }
+
+
+  .panel-title {
+    @apply mt-0 mb-3 text-lg font-semibold text-slate-800;
+  }
+
+  .toolbar {
+    @apply sticky top-0 z-10 bg-surface/80 backdrop-blur supports-[backdrop-filter]:bg-surface/60;
+  }
+}

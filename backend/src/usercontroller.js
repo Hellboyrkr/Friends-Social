@@ -11,14 +11,27 @@ const db = require('./db');
  * Validates required fields for user creation/update.
  * Requires: username, age, and hobbies (must be an array).
  */
+// Optional hobbies; coerce to array of strings
 const validateUser = (req, res, next) => {
-    const { username, age, hobbies } = req.body;
-    if (!username || !age || !hobbies || !Array.isArray(hobbies)) {
-        // 400 - Validation errors
-        return res.status(400).json({ error: "400 Validation Error: username, age, and hobbies (as array) are required." });
-    }
-    next();
+  const { username, age, hobbies } = req.body;
+
+  if (!username || typeof username !== 'string' || !username.trim()) {
+    return res.status(400).json({ error: "username is required" });
+  }
+  const ageNum = Number(age);
+  if (!Number.isFinite(ageNum) || ageNum < 13 || ageNum > 120) {
+    return res.status(400).json({ error: "age must be a number between 13 and 120" });
+  }
+
+  // Normalize hobbies: optional; if provided, coerce to string[] and de-dupe
+  let normalized = [];
+  if (Array.isArray(hobbies)) {
+    normalized = [...new Set(hobbies.map(String).map(s => s.trim()).filter(Boolean))];
+  }
+  req.body = { ...req.body, age: ageNum, hobbies: normalized };
+  next();
 };
+
 
 /**
  * Checks if a user exists by ID and attaches the user object to the request (req.user).
@@ -53,16 +66,17 @@ router.get('/users', (req, res) => {
 // POST /api/users (Create User)
 // ROUTE FIX: Added '/users' to the path definition
 router.post('/users', validateUser, (req, res) => {
-    try {
-        const user = userModel.createUser(req.body);
-        res.status(201).json(user);
-    } catch (error) {
-        if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
-            return res.status(400).json({ error: "400 Validation Error: Username already exists." });
-        }
-        console.error("Error creating user:", error);
-        res.status(500).json({ error: "500 Internal Server Error during creation." });
+  try {
+    const payload = { ...req.body, hobbies: Array.isArray(req.body.hobbies) ? req.body.hobbies : [] };
+    const user = userModel.createUser(payload);
+    res.status(201).json(user);
+  } catch (error) {
+    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+      return res.status(400).json({ error: "400 Validation Error: Username already exists." });
     }
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "500 Internal Server Error during creation." });
+  }
 });
 
 // PUT /api/users/:id (Update User)
