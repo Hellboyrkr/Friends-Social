@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_API_BASE_URL || 'https://friends-social-058q.onrender.com';
+const baseURL = process.env.REACT_APP_API_BASE_URL || 'https://friends-social-058q.onrender.com/api';
 
 export const api = axios.create({
   baseURL,
