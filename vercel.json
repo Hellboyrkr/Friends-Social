@@ -6,10 +6,7 @@
       "use": "@vercel/static-build",
       "config": { "distDir": "build" }
     },
-    {
-      "src": "backend/package.json",
-      "use": "@vercel/node"
-    },
+    
     {
       "src": "backend/src/server.js",
       "use": "@vercel/node"
