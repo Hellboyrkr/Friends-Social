@@ -8,23 +8,19 @@
         "distDir": "build",
         "buildCommand": "npm install && npm run build"
       }
-    },
-    {
-      "src": "backend/src/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/src/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontend3/$1"
     }
   ],
   "env": {
     "CI": "false"
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://friends-social-058q.onrender.com/api/$1"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
 }
