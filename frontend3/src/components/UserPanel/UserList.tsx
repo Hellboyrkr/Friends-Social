@@ -5,7 +5,7 @@ import ConfirmDialog from '../ConfirmDialog';
 import toast from 'react-hot-toast';
 
 const UserList: React.FC = () => {
-  const { items, selectedId } = useAppSelector((s) => s.users);
+  const { items } = useAppSelector((s) => s.users);
   const dispatch = useAppDispatch();
   const [confirmId, setConfirmId] = React.useState<string | null>(null);
 
