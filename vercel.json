@@ -4,9 +4,11 @@
     {
       "src": "frontend3/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
+      "config": {
+        "distDir": "build",
+        "buildCommand": "npm install && npm run build"
+      }
     },
-    
     {
       "src": "backend/src/server.js",
       "use": "@vercel/node"
@@ -21,5 +23,8 @@
       "src": "/(.*)",
       "dest": "frontend3/$1"
     }
-  ]
+  ],
+  "env": {
+    "CI": "false"
+  }
 }
