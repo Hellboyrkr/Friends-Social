@@ -4,7 +4,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 // Renamed import for clarity: userController now represents the router instance
-const userRouter = require('./userController'); 
+const userRouter = require('./usercontroller'); 
 
 // Load environment variables from .env file
 dotenv.config();
